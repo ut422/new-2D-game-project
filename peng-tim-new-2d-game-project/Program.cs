@@ -21,8 +21,6 @@ public class Program
     // enemy instance
     static EnemyClass enemy;
 
-    // background text stuff
-    static BgTextClass bgText;
 
     static void Main()
     {
@@ -52,8 +50,7 @@ public class Program
         // initialize enemy
         enemy = new EnemyClass(screenWidth / 1, screenHeight - 20, 20, 200, 1, 799);
 
-        // initialize background text
-        bgText = new BgTextClass();
+        
     }
 
     static void Update()
@@ -80,8 +77,7 @@ public class Program
         // enemy pos
         enemy.Update();
 
-        // bg text update
-        bgText.Update();
+
 
         // checks for collision between player and enemy
         if (CheckCollisionPlayerEnemy())
@@ -104,8 +100,7 @@ public class Program
         // draws the enemy
         enemy.Draw();
 
-        // draws the background text
-        bgText.Draw();
+
 
         Raylib.EndDrawing();
     }
