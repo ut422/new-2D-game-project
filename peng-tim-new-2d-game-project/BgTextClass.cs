@@ -9,7 +9,7 @@ public class BgTextClass
     private Font font;
     private Vector2 position;
     private Color color;
-    private int scrollSpeed = 25; // Adjust scroll speed as needed
+    private int scrollSpeed = 25; // adjustable scroll speed
 
     public BgTextClass()
     {
@@ -17,7 +17,7 @@ public class BgTextClass
         color = Color.DarkGray;
         position = new Vector2(10, 10);
 
-        // Example of a long text to scroll
+        // wall of text
         text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
         Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
@@ -26,16 +26,16 @@ public class BgTextClass
         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
         mollit anim id est laborum.";
 
-        // Make text start off-screen at the top
+        // makes the text start up at the top (off screen)
         position.Y = -155;
     }
 
     public void Update()
     {
-        // Update the position to scroll the text
+        // scroll text position update
         position.Y += scrollSpeed * Raylib.GetFrameTime();
 
-        // Reset position when text has scrolled off-screen
+        // once the text goes offscreen, it resets
         if (position.Y > Raylib.GetScreenHeight())
         {
             position.Y = -155;
