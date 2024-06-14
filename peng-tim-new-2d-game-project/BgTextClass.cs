@@ -9,15 +9,15 @@ public class BgTextClass
     private Font font;
     private Vector2 position;
     private Color color;
-    private int scrollSpeed = 25; // adjustable scroll speed
+    private int scrollSpeed = 25; // adjustable scroll speed....
+    private int fontSize = 20;   // now with adjustable font size! 😱😱😱😱😱😱😱😱😱😱😱😱😱😱
 
     public BgTextClass()
     {
-        font = Raylib.LoadFont("arial.ttf");
         color = Color.DarkGray;
         position = new Vector2(10, 10);
 
-        // wall of text
+        // big chunk o' text
         text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
         Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
@@ -26,16 +26,16 @@ public class BgTextClass
         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
         mollit anim id est laborum.";
 
-        // makes the text start up at the top (off screen)
+        // makes sure the text starts up at the top (off screen as well)
         position.Y = -155;
     }
 
     public void Update()
     {
-        // scroll text position update
+        // text scolling position update
         position.Y += scrollSpeed * Raylib.GetFrameTime();
 
-        // once the text goes offscreen, it resets
+        // resets text position when text goes offscreen
         if (position.Y > Raylib.GetScreenHeight())
         {
             position.Y = -155;
@@ -44,6 +44,12 @@ public class BgTextClass
 
     public void Draw()
     {
-        Raylib.DrawTextEx(font, text, position, 9, 0, color);
+        Raylib.DrawTextEx(font, text, position, fontSize, 0, color);
+    }
+
+    // adjust text size 101
+    public void SetFontSize(int size)
+    {
+        fontSize = size;
     }
 }

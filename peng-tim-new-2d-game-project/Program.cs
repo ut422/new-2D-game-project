@@ -21,7 +21,7 @@ public class Program
     // enemy instance
     static EnemyClass enemy;
 
-    // background text instance
+    // background text stuff
     static BgTextClass bgText;
 
     static void Main()
@@ -29,6 +29,10 @@ public class Program
         Raylib.InitWindow(screenWidth, screenHeight, title);
         Raylib.SetTargetFPS(targetFps);
         Setup();
+
+        // Modify enemy speed and radius
+        enemy.Speed = 150; // adjustable speed
+        enemy.Radius = 30; // adjustable radius
 
         while (!Raylib.WindowShouldClose())
         {
@@ -70,19 +74,19 @@ public class Program
             isJumping = true;
         }
 
-        // simulate gravity for player
+        // gravity stuff
         SimulateGravity();
 
-        // update enemy position
+        // enemy pos
         enemy.Update();
 
-        // update background text
+        // bg text update
         bgText.Update();
 
-        // check for collision between player and enemy
+        // checks for collision between player and enemy
         if (CheckCollisionPlayerEnemy())
         {
-            Raylib.CloseWindow(); // close the game window on collision
+            Raylib.CloseWindow(); // closes the game window on collision
         }
 
         // check screen boundaries for player
@@ -94,13 +98,13 @@ public class Program
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.RayWhite);
 
-        // draw player
+        // draws the player
         Raylib.DrawRectangle((int)playerPosition.X, (int)playerPosition.Y, (int)playerSize.X, (int)playerSize.Y, Color.DarkGreen);
 
-        // draw enemy
+        // draws the enemy
         enemy.Draw();
 
-        // draw background text
+        // draws the background text
         bgText.Draw();
 
         Raylib.EndDrawing();
@@ -108,17 +112,17 @@ public class Program
 
     static void SimulateGravity()
     {
-        float deltaTime = Raylib.GetFrameTime(); // get the time elapsed since last frame
+        float deltaTime = Raylib.GetFrameTime(); // gets the time elapsed since last frame
         Vector2 gravityForce = deltaTime * gravity; // calculate gravity force for this frame
         playerVelocity += gravityForce; // apply gravitational force to velocity
         playerPosition += playerVelocity * deltaTime; // update position based on velocity
 
-        // check if player is on the ground (y velocity is non-positive)
+        // check if player is on the ground (y velocity isn't positive)
         if (playerPosition.Y >= screenHeight - playerSize.Y - 20)
         {
-            playerPosition.Y = screenHeight - playerSize.Y - 20; // snap to ground
-            playerVelocity.Y = 0; // stop vertical velocity
-            isJumping = false; // allow jumping again
+            playerPosition.Y = screenHeight - playerSize.Y - 20; // snaps to ground
+            playerVelocity.Y = 0; // stops vertical velocity
+            isJumping = false; // jumping allowed again
         }
     }
 
@@ -140,7 +144,7 @@ public class Program
 
     static void CheckPlayerScreenBoundaries()
     {
-        // ensure player stays within screen boundaries
+        // MAKES SURE the player stays within screen boundaries
         if (playerPosition.X < 0)
             playerPosition.X = 0;
         else if (playerPosition.X > screenWidth - playerSize.X)
