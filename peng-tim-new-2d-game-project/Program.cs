@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using System;
 using System.Numerics;
 using Color = Raylib_cs.Color;
 
@@ -20,15 +21,14 @@ public class Program
     // Enemy instance
     static EnemyClass enemy;
 
+    // Background text instance
+    static BgTextClass bgText;
+
     static void Main()
     {
         Raylib.InitWindow(screenWidth, screenHeight, title);
         Raylib.SetTargetFPS(targetFps);
         Setup();
-
-        // Modify enemy speed and radius
-        enemy.Speed = 150; // adjustable speed
-        enemy.Radius = 30; // adjustable radius
 
         while (!Raylib.WindowShouldClose())
         {
@@ -47,6 +47,9 @@ public class Program
 
         // initialize enemy
         enemy = new EnemyClass(screenWidth / 1, screenHeight - 20, 20, 200, 1, 799);
+
+        // initialize background text
+        bgText = new BgTextClass();
     }
 
     static void Update()
@@ -73,6 +76,9 @@ public class Program
         // update enemy position
         enemy.Update();
 
+        // update background text
+        bgText.Update();
+
         // check for collision between player and enemy
         if (CheckCollisionPlayerEnemy())
         {
@@ -93,6 +99,9 @@ public class Program
 
         // draw enemy
         enemy.Draw();
+
+        // draw background text
+        bgText.Draw();
 
         Raylib.EndDrawing();
     }
