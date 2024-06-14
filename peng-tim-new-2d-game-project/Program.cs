@@ -10,7 +10,7 @@ public class Program
     static int screenHeight = 600;
     static int targetFps = 60;
 
-    // Player variables
+    // player variables
     static Vector2 playerPosition;
     static Vector2 playerSize = new Vector2(40, 40); // player size
     static Vector2 playerVelocity;
@@ -18,10 +18,10 @@ public class Program
     static float jumpVelocity = -300; // velocity applied when jumping
     static bool isJumping = false; // flag to track if the player is jumping
 
-    // Enemy instance
+    // enemy instance
     static EnemyClass enemy;
 
-    // Background text instance
+    // background text instance
     static BgTextClass bgText;
 
     static void Main()
