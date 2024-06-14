@@ -10,21 +10,15 @@ public class BgTextClass
     private Vector2 position;
     private Color color;
     private int scrollSpeed = 25; // adjustable scroll speed....
-    private int fontSize = 20;   // now with adjustable font size! 😱😱😱😱😱😱😱😱😱😱😱😱😱😱
-
+    private int fontSize = 30;   // now with adjustable font size! 😱😱😱😱😱😱😱😱😱😱😱😱😱😱
+    private int spacing = 5; //and with adjustable... sSPACING?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!?!??!?!?!?!?
     public BgTextClass()
     {
         color = Color.DarkGray;
         position = new Vector2(10, 10);
 
         // big chunk o' text
-        text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
-        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-        mollit anim id est laborum.";
+        text = @"pee pee poopoo";
 
         // makes sure the text starts up at the top (off screen as well)
         position.Y = -155;
@@ -44,12 +38,17 @@ public class BgTextClass
 
     public void Draw()
     {
-        Raylib.DrawTextEx(font, text, position, fontSize, 0, color);
+        Raylib.DrawTextEx(font, text, position, fontSize, spacing, color);
     }
 
     // adjust text size 101
     public void SetFontSize(int size)
     {
         fontSize = size;
+    }
+    // adjust spacing 102
+    public void SetSpacing(int space)
+    {
+        spacing = space;
     }
 }
