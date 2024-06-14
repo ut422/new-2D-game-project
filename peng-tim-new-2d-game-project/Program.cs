@@ -11,11 +11,11 @@ public class Program
 
     // Player variables
     static Vector2 playerPosition;
-    static Vector2 playerSize = new Vector2(40, 40); // Player size
+    static Vector2 playerSize = new Vector2(40, 40); // player size
     static Vector2 playerVelocity;
-    static Vector2 gravity = new Vector2(0, 300); // Gravity vector
-    static float jumpVelocity = -300; // Velocity applied when jumping
-    static bool isJumping = false; // Flag to track if the player is jumping
+    static Vector2 gravity = new Vector2(0, 300); // gravity vector
+    static float jumpVelocity = -300; // velocity applied when jumping
+    static bool isJumping = false; // flag to track if the player is jumping
 
     // Enemy instance
     static EnemyClass enemy;
@@ -25,6 +25,10 @@ public class Program
         Raylib.InitWindow(screenWidth, screenHeight, title);
         Raylib.SetTargetFPS(targetFps);
         Setup();
+
+        // Modify enemy speed and radius
+        enemy.Speed = 150; // adjustable speed
+        enemy.Radius = 30; // adjustable radius
 
         while (!Raylib.WindowShouldClose())
         {
@@ -37,17 +41,17 @@ public class Program
 
     static void Setup()
     {
-        // Initialize player position at center bottom
+        // initialize player position at center bottom
         playerPosition = new Vector2(screenWidth / 22 - playerSize.X / 2, screenHeight - playerSize.Y - 20);
         playerVelocity = Vector2.Zero;
 
-        // Initialize enemy
+        // initialize enemy
         enemy = new EnemyClass(screenWidth / 1, screenHeight - 20, 20, 200, 1, 799);
     }
 
     static void Update()
     {
-        // Input handling for player movement and jumping
+        // input handling for player movement and jumping
         if (Raylib.IsKeyDown(KeyboardKey.Right))
         {
             playerPosition.X += 5;
@@ -58,26 +62,24 @@ public class Program
         }
         if (Raylib.IsKeyPressed(KeyboardKey.Space) && !isJumping)
         {
-            // Only allow jumping if not already jumping
+            // only allow jumping if not already jumping
             playerVelocity.Y = jumpVelocity;
             isJumping = true;
         }
 
-        // Simulate gravity for player
+        // simulate gravity for player
         SimulateGravity();
 
-        // Update enemy position
-        enemy.Update(
-        // Update enemy position
-        enemy.GetPosition());
+        // update enemy position
+        enemy.Update();
 
-        // Check for collision between player and enemy
+        // check for collision between player and enemy
         if (CheckCollisionPlayerEnemy())
         {
-            Raylib.CloseWindow(); // Close the game window on collision
+            Raylib.CloseWindow(); // close the game window on collision
         }
 
-        // Check screen boundaries for player
+        // check screen boundaries for player
         CheckPlayerScreenBoundaries();
     }
 
@@ -86,10 +88,10 @@ public class Program
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.RayWhite);
 
-        // Draw player
+        // draw player
         Raylib.DrawRectangle((int)playerPosition.X, (int)playerPosition.Y, (int)playerSize.X, (int)playerSize.Y, Color.DarkGreen);
 
-        // Draw enemy
+        // draw enemy
         enemy.Draw();
 
         Raylib.EndDrawing();
@@ -97,23 +99,23 @@ public class Program
 
     static void SimulateGravity()
     {
-        float deltaTime = Raylib.GetFrameTime(); // Get the time elapsed since last frame
-        Vector2 gravityForce = deltaTime * gravity; // Calculate gravity force for this frame
-        playerVelocity += gravityForce; // Apply gravitational force to velocity
-        playerPosition += playerVelocity * deltaTime; // Update position based on velocity
+        float deltaTime = Raylib.GetFrameTime(); // get the time elapsed since last frame
+        Vector2 gravityForce = deltaTime * gravity; // calculate gravity force for this frame
+        playerVelocity += gravityForce; // apply gravitational force to velocity
+        playerPosition += playerVelocity * deltaTime; // update position based on velocity
 
-        // Check if player is on the ground (y velocity is non-positive)
+        // check if player is on the ground (y velocity is non-positive)
         if (playerPosition.Y >= screenHeight - playerSize.Y - 20)
         {
-            playerPosition.Y = screenHeight - playerSize.Y - 20; // Snap to ground
-            playerVelocity.Y = 0; // Stop vertical velocity
-            isJumping = false; // Allow jumping again
+            playerPosition.Y = screenHeight - playerSize.Y - 20; // snap to ground
+            playerVelocity.Y = 0; // stop vertical velocity
+            isJumping = false; // allow jumping again
         }
     }
 
     static bool CheckCollisionPlayerEnemy()
     {
-        // Check for bounding box collision
+        // check for bounding box collision
         float playerRight = playerPosition.X + playerSize.X;
         float playerBottom = playerPosition.Y + playerSize.Y;
         float enemyLeft = enemy.Position.X - enemy.Radius;
@@ -129,7 +131,7 @@ public class Program
 
     static void CheckPlayerScreenBoundaries()
     {
-        // Ensure player stays within screen boundaries
+        // ensure player stays within screen boundaries
         if (playerPosition.X < 0)
             playerPosition.X = 0;
         else if (playerPosition.X > screenWidth - playerSize.X)
